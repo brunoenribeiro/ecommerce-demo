@@ -2,15 +2,12 @@ import Head from 'next/head'
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
-  useQuery,
   gql,
 } from "@apollo/client";
 
 import Layout from '@components/Layout';
-import Header from '@components/Header';
 import Container from '@components/Container';
-import Button from '@components/Button';
+import AddProductToCartButton from '@components/AddProductToCartButton';
 
 import styles from '@styles/Product.module.scss'
 
@@ -36,9 +33,13 @@ export default function Product({ product }) {
               ${product.price}
             </p>
             <p className={styles.productBuy}>
-              <Button>
-                Add to Cart
-              </Button>
+              <AddProductToCartButton
+                productId={product.id}
+                productName={product.name}
+                productPrice={product.price}
+                productUrl={`/products/${product.slug}`}
+                imageUrl={product.image.url}
+              />
             </p>
           </div>
         </div>
@@ -61,6 +62,9 @@ export async function getStaticPaths() {
           price
           slug
           image
+          description {
+            html
+          }
         }
       }
     `,
