@@ -5,11 +5,10 @@ import { gql } from "@apollo/client";
 import Layout from "@components/Layout";
 import Container from "@components/Container";
 import AddProductToCartButton from "@components/AddProductToCartButton";
-
-import styles from "@styles/Page.module.scss";
-import cloudinary from "@lib/cloudinary";
-import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
+import CloudinaryImage from "@components/CloudinaryImage";
 import hygraph from "@api/hygraph";
+import styles from "@styles/Page.module.scss";
+import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
 
 export default function Home({ home, products }) {
   const { heroTitle, heroText, heroLink, heroBackground } = home;
@@ -31,11 +30,11 @@ export default function Home({ home, products }) {
                 <h2>{ heroTitle }</h2>
                 <p>{ heroText }</p>
               </div>
-              <img
+              <CloudinaryImage
                 className={styles.heroImage}
+                publicId={heroBackground.public_id}
                 width={heroBackground.width}
                 height={heroBackground.height}
-                src={cloudinary.image(heroBackground.public_id).quality('auto').format('auto').toURL()}
                 alt=""
               />
             </a>
@@ -46,20 +45,15 @@ export default function Home({ home, products }) {
 
         <ul className={styles.products}>
           {products.map((product) => {
-            const imageUrl = cloudinary.image(product.image.public_id)
-              .quality('auto')
-              .format('auto')
-              .toURL();
-
             return (
               <li key={product.slug}>
                 <Link href={`/products/${product.slug}`}>
                   <a>
                     <div className={styles.productImage}>
-                      <img
+                      <CloudinaryImage
+                        publicId={product.image.public_id}
                         width={product.image.width}
                         height={product.image.height}
-                        src={imageUrl}
                         alt=""
                       />
                     </div>
@@ -73,7 +67,7 @@ export default function Home({ home, products }) {
                     productName={product.name}
                     productPrice={product.price}
                     productUrl={`/products/${product.slug}`}
-                    imageUrl={product.image.url}
+                    cloudinaryPublicImageId={product.image.public_id}
                   />
                 </p>
               </li>

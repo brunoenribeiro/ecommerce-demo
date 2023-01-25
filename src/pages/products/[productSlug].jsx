@@ -4,11 +4,10 @@ import { gql } from "@apollo/client";
 import Layout from '@components/Layout';
 import Container from '@components/Container';
 import AddProductToCartButton from '@components/AddProductToCartButton';
-
-import styles from '@styles/Product.module.scss'
-import cloudinary from '@lib/cloudinary';
-import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
+import CloudinaryImage from '@components/CloudinaryImage';
 import hygraph from '@api/hygraph';
+import styles from '@styles/Product.module.scss'
+import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
 
 export default function Product({ product }) {
   return (
@@ -21,7 +20,12 @@ export default function Product({ product }) {
       <Container>
         <div className={styles.productWrapper}>
           <div className={styles.productImage}>
-            <img src={cloudinary.image(product.image.public_id).quality('auto').format('auto').toURL()} width={product.image.width} height={product.image.height} alt="" />
+            <CloudinaryImage
+              publicId={product.image.public_id}
+              width={product.image.width}
+              height={product.image.height}
+              alt=""
+            />
           </div>
           <div className={styles.productContent}>
             <h1>{product.name}</h1>
@@ -37,7 +41,7 @@ export default function Product({ product }) {
                 productName={product.name}
                 productPrice={product.price}
                 productUrl={`/products/${product.slug}`}
-                imageUrl={product.image.url}
+                cloudinaryPublicImageId={product.image.public_id}
               />
             </p>
           </div>

@@ -4,11 +4,11 @@ import { gql } from "@apollo/client";
 
 import Layout from '@components/Layout';
 import Container from '@components/Container';
-import styles from '@styles/Page.module.scss'
 import AddProductToCartButton from '@components/AddProductToCartButton';
-import cloudinary from '@lib/cloudinary';
-import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
+import CloudinaryImage from '@components/CloudinaryImage';
 import hygraph from '@api/hygraph';
+import styles from '@styles/Page.module.scss'
+import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
 
 export default function Category({ category, products }) {
   return (
@@ -25,23 +25,15 @@ export default function Category({ category, products }) {
 
         <ul className={styles.products}>
           {products.map(product => {
-            const imageWidth = 900;
-            const imageHeight = 900;
-            const imageUrl = cloudinary.image(product.image.public_id)
-              .quality('auto')
-              .format('auto')
-              .resize(`w_${imageWidth},h_${imageHeight}`)
-              .toURL();
-
             return (
               <li key={product.id}>
                 <Link href={`/products/${product.slug}`}>
                   <a>
                     <div className={styles.productImage}>
-                      <img
-                        width={imageWidth}
-                        height={imageHeight}
-                        src={imageUrl}
+                      <CloudinaryImage
+                        publicId={product.image.public_id}
+                        width={900}
+                        height={900}
                         alt=""
                       />
                     </div>
@@ -59,7 +51,7 @@ export default function Category({ category, products }) {
                     productName={product.name}
                     productPrice={product.price}
                     productSlug={`/products/${product.slug}`}
-                    imageUrl={imageUrl}
+                    cloudinaryPublicImageId={product.image.public_id}
                   />
                 </p>
               </li>

@@ -4,4 +4,7 @@ module.exports = {
     locales: ["en", "pt-BR"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
 };
