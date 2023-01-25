@@ -1,13 +1,20 @@
 # E-commerce Demo
 
+## Live Demo
+
+[https://brunoenribeiro-ecommerce-demo.vercel.app/](https://brunoenribeiro-ecommerce-demo.vercel.app/)
+
+## Description
+
 👉 This project is a WIP.
 
 Demo project based on this Egghead's Course: [ECommerce Product Management & Storefront with GraphCMS, Snipcart, & Next.js](https://egghead.io/courses/ecommerce-product-management-storefront-with-graphcms-snipcart-next-js-13cc0534) by [Colby Fayock](https://www.colbyfayock.com/).
 
 His project features:
 
-- Product CMS w/ Cloudinary integration (wip);
-- Sandbox checkout w/ Stripe integration (wip);
+- Product CMS w/ Hygraph;
+- Media optimization w/ Cloudinary;
+- Sandbox checkout w/ Snipcart and Stripe;
 - i18n (wip);
 
 I've added:
@@ -15,10 +22,6 @@ I've added:
 - Simplified `<Map>` implementation;
 - Strong typing (to do);
 - Automated integration testing (to do).
-
-## Live Demo
-
-[https://ecommerce-demo-rosy.vercel.app/](https://ecommerce-demo-rosy.vercel.app/)
 
 ## Stack
 
