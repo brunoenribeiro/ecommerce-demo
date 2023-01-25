@@ -11,6 +11,8 @@ import Container from "@components/Container";
 import AddProductToCartButton from "@components/AddProductToCartButton";
 
 import styles from "@styles/Page.module.scss";
+import cloudinary from "@lib/cloudinary";
+import avoidTooManyRequestsError from "@lib/avoidTooManyRequestsError";
 
 export default function Home({ home, products }) {
   const { heroTitle, heroText, heroLink, heroBackground } = home;
@@ -36,7 +38,7 @@ export default function Home({ home, products }) {
                 className={styles.heroImage}
                 width={heroBackground.width}
                 height={heroBackground.height}
-                src={heroBackground.url}
+                src={cloudinary.image(heroBackground.public_id).quality('auto').format('auto').toURL()}
                 alt=""
               />
             </a>
@@ -47,6 +49,11 @@ export default function Home({ home, products }) {
 
         <ul className={styles.products}>
           {products.map((product) => {
+            const imageUrl = cloudinary.image(product.image.public_id)
+              .quality('auto')
+              .format('auto')
+              .toURL();
+
             return (
               <li key={product.slug}>
                 <Link href={`/products/${product.slug}`}>
@@ -55,7 +62,7 @@ export default function Home({ home, products }) {
                       <img
                         width={product.image.width}
                         height={product.image.height}
-                        src={product.image.url}
+                        src={imageUrl}
                         alt=""
                       />
                     </div>
@@ -82,6 +89,8 @@ export default function Home({ home, products }) {
 }
 
 export async function getStaticProps({ locale }) {
+  await avoidTooManyRequestsError();
+  
   const client = new ApolloClient({
     uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
     cache: new InMemoryCache(),

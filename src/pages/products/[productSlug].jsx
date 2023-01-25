@@ -10,6 +10,8 @@ import Container from '@components/Container';
 import AddProductToCartButton from '@components/AddProductToCartButton';
 
 import styles from '@styles/Product.module.scss'
+import cloudinary from '@lib/cloudinary';
+import avoidTooManyRequestsError from "@lib/avoidTooManyRequestsError";
 
 export default function Product({ product }) {
   return (
@@ -22,7 +24,7 @@ export default function Product({ product }) {
       <Container>
         <div className={styles.productWrapper}>
           <div className={styles.productImage}>
-            <img src={product.image.url} width={product.image.width} height={product.image.height} alt="" />
+            <img src={cloudinary.image(product.image.public_id).quality('auto').format('auto').toURL()} width={product.image.width} height={product.image.height} alt="" />
           </div>
           <div className={styles.productContent}>
             <h1>{product.name}</h1>
@@ -86,6 +88,8 @@ export async function getStaticPaths({ locales }) {
 }
 
 export async function getStaticProps({ params, locale }) {
+  await avoidTooManyRequestsError();
+  
   const client = new ApolloClient({
     uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
     cache: new InMemoryCache(),

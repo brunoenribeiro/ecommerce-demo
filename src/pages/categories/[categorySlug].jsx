@@ -8,9 +8,10 @@ import {
 
 import Layout from '@components/Layout';
 import Container from '@components/Container';
-
 import styles from '@styles/Page.module.scss'
 import AddProductToCartButton from '@components/AddProductToCartButton';
+import cloudinary from '@lib/cloudinary';
+import avoidTooManyRequestsError from "@lib/avoidTooManyRequestsError";
 
 export default function Category({ category, products }) {
   return (
@@ -26,37 +27,47 @@ export default function Category({ category, products }) {
         <h2>Products</h2>
 
         <ul className={styles.products}>
-          {products.map(product => (
-            <li key={product.id}>
-              <Link href={`/products/${product.slug}`}>
-                <a>
-                  <div className={styles.productImage}>
-                    <img
-                      width={product.image.width}
-                      height={product.image.height}
-                      src={product.image.url}
-                      alt=""
-                    />
-                  </div>
-                  <h3 className={styles.productTitle}>
-                    {product.name}
-                  </h3>
-                  <p className={styles.productPrice}>
-                    ${product.price?.toFixed(2)}
-                  </p>
-                </a>
-              </Link>
-              <p>
-                <AddProductToCartButton
-                  productId={product.id}
-                  productName={product.name}
-                  productPrice={product.price}
-                  productSlug={`/products/${product.slug}`}
-                  imageUrl={product.image.url}
-                />
-              </p>
-            </li>
-          ))}
+          {products.map(product => {
+            const imageWidth = 900;
+            const imageHeight = 900;
+            const imageUrl = cloudinary.image(product.image.public_id)
+              .quality('auto')
+              .format('auto')
+              .resize(`w_${imageWidth},h_${imageHeight}`)
+              .toURL();
+
+            return (
+              <li key={product.id}>
+                <Link href={`/products/${product.slug}`}>
+                  <a>
+                    <div className={styles.productImage}>
+                      <img
+                        width={imageWidth}
+                        height={imageHeight}
+                        src={imageUrl}
+                        alt=""
+                      />
+                    </div>
+                    <h3 className={styles.productTitle}>
+                      {product.name}
+                    </h3>
+                    <p className={styles.productPrice}>
+                      ${product.price?.toFixed(2)}
+                    </p>
+                  </a>
+                </Link>
+                <p>
+                  <AddProductToCartButton
+                    productId={product.id}
+                    productName={product.name}
+                    productPrice={product.price}
+                    productSlug={`/products/${product.slug}`}
+                    imageUrl={imageUrl}
+                  />
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </Container>
     </Layout>
@@ -96,6 +107,8 @@ export async function getStaticPaths({ locales }) {
 }
 
 export async function getStaticProps({ params, locale }) {
+  await avoidTooManyRequestsError();
+  
   const client = new ApolloClient({
     uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
     cache: new InMemoryCache(),
