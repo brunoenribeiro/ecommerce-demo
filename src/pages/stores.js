@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 import Layout from "@components/Layout";
 import Container from "@components/Container";
@@ -9,6 +9,7 @@ import Map from "@components/Map";
 
 import styles from "@styles/Page.module.scss";
 import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
+import hygraph from "@api/hygraph";
 
 export default function Stores({ storeLocations }) {
   const [selectedLatlong, setSelectedLatlong] = useState(null);
@@ -86,12 +87,7 @@ export default function Stores({ storeLocations }) {
 export async function getStaticProps({ params }) {
   await avoidTooManyRequestsError();
 
-  const client = new ApolloClient({
-    uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
-    cache: new InMemoryCache(),
-  });
-
-  const { data } = await client.query({
+  const { data } = await hygraph.query({
     query: gql`
       query STORE_LOCATIONS {
         storeLocations {

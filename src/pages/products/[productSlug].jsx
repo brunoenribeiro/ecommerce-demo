@@ -1,9 +1,5 @@
 import Head from 'next/head'
-import {
-  ApolloClient,
-  InMemoryCache,
-  gql,
-} from "@apollo/client";
+import { gql } from "@apollo/client";
 
 import Layout from '@components/Layout';
 import Container from '@components/Container';
@@ -12,6 +8,7 @@ import AddProductToCartButton from '@components/AddProductToCartButton';
 import styles from '@styles/Product.module.scss'
 import cloudinary from '@lib/cloudinary';
 import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
+import hygraph from '@api/hygraph';
 
 export default function Product({ product }) {
   return (
@@ -51,12 +48,7 @@ export default function Product({ product }) {
 }
 
 export async function getStaticPaths({ locales }) {
-  const client = new ApolloClient({
-    uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
-    cache: new InMemoryCache(),
-  });
-
-  const { data } = await client.query({
+  const { data } = await hygraph.query({
     query: gql`
       query PATHS_PRODUCTS {
         products {
@@ -89,13 +81,8 @@ export async function getStaticPaths({ locales }) {
 
 export async function getStaticProps({ params, locale }) {
   await avoidTooManyRequestsError();
-  
-  const client = new ApolloClient({
-    uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
-    cache: new InMemoryCache(),
-  });
 
-  const { data } = await client.query({
+  const { data } = await hygraph.query({
     query: gql`
       query PRODUCT($productSlug: String, $locale: Locale!) {
         product(where: { slug: $productSlug }, locales: [$locale]) {
