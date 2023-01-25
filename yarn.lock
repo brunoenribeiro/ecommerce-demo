@@ -1173,10 +1173,43 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@react-leaflet/core@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-2.1.0.tgz#383acd31259d7c9ae8fb1b02d5e18fe613c2a13d"
+  integrity sha512-Qk7Pfu8BSarKGqILj4x7bCSZ1pjuAPZ+qmRwH5S7mDS91VSbVVsJSrW4qA+GPrro8t69gFYVMWb1Zc4yFmPiVg==
+
 "@rushstack/eslint-patch@^1.0.8":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz#7f698254aadf921e48dda8c0a6b304026b8a9323"
   integrity sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==
+
+"@turf/bbox@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.5.0.tgz#bec30a744019eae420dac9ea46fb75caa44d8dc5"
+  integrity sha512-RBbLaao5hXTYyyg577iuMtDB8ehxMlUqHEJiMs8jT1GHkFhr6sYre3lmLsPeYEi/ZKj5TP5tt7fkzNdJ4GIVyw==
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
+
+"@turf/center@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/center/-/center-6.5.0.tgz#3bcb6bffcb8ba147430cfea84aabaed5dbdd4f07"
+  integrity sha512-T8KtMTfSATWcAX088rEDKjyvQCBkUsLnK/Txb6/8WUXIeOZyHu42G7MkdkHRoHtwieLdduDdmPLFyTdG5/e7ZQ==
+  dependencies:
+    "@turf/bbox" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+
+"@turf/helpers@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-6.5.0.tgz#f79af094bd6b8ce7ed2bd3e089a8493ee6cae82e"
+  integrity sha512-VbI1dV5bLFzohYYdgqwikdMVpe7pJ9X3E+dlr425wa2/sMJqYDhTO++ec38/pcPvPE6oD9WEEeU3Xu3gza+VPw==
+
+"@turf/meta@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.5.0.tgz#b725c3653c9f432133eaa04d3421f7e51e0418ca"
+  integrity sha512-RrArvtsV0vdsCBegoBtOalgdSOfkBrTJ07VkpiCnq/491W67hnMWmDu7e6Ztw0C3WldRYTXkg3SumfdzZxLBHA==
+  dependencies:
+    "@turf/helpers" "^6.5.0"
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -2331,6 +2364,11 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
+leaflet@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.3.tgz#52ec436954964e2d3d39e0d433da4b2500d74414"
+  integrity sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ==
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
@@ -2680,6 +2718,13 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-leaflet@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.2.0.tgz#6c2ee4b576209d9fe40e78006cfa37196c216eaa"
+  integrity sha512-9d8T7hzYrQA5GLe3vn0qtRLJzQKgjr080NKa45yArGwuSl1nH/6aK9gp7DeYdktpdO1vKGSUTGW5AsUS064X0A==
+  dependencies:
+    "@react-leaflet/core" "^2.1.0"
 
 react@17.0.2:
   version "17.0.2"
