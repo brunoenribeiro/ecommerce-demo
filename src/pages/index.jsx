@@ -11,6 +11,7 @@ import {
 import Layout from "@components/Layout";
 import Container from "@components/Container";
 import Button from "@components/Button";
+import AddProductToCartButton from "@components/AddProductToCartButton";
 
 import styles from "@styles/Page.module.scss";
 
@@ -66,7 +67,13 @@ export default function Home({ home, products }) {
                   </a>
                 </Link>
                 <p>
-                  <Button>Add to Cart</Button>
+                  <AddProductToCartButton
+                    productId={product.id}
+                    productName={product.name}
+                    productPrice={product.price}
+                    productUrl={`/products/${product.slug}`}
+                    imageUrl={product.image.url}
+                  />
                 </p>
               </li>
             );
@@ -96,6 +103,7 @@ export async function getStaticProps() {
           heroBackground
         }
         products(first: 4) {
+          id
           name
           price
           slug
