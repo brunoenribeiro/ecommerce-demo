@@ -11,7 +11,7 @@ import Container from '@components/Container';
 import styles from '@styles/Page.module.scss'
 import AddProductToCartButton from '@components/AddProductToCartButton';
 import cloudinary from '@lib/cloudinary';
-import avoidTooManyRequestsError from "@lib/avoidTooManyRequestsError";
+import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
 
 export default function Category({ category, products }) {
   return (

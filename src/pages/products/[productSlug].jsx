@@ -11,7 +11,7 @@ import AddProductToCartButton from '@components/AddProductToCartButton';
 
 import styles from '@styles/Product.module.scss'
 import cloudinary from '@lib/cloudinary';
-import avoidTooManyRequestsError from "@lib/avoidTooManyRequestsError";
+import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
 
 export default function Product({ product }) {
   return (

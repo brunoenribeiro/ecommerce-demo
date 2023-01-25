@@ -8,7 +8,7 @@ import Container from "@components/Container";
 import Map from "@components/Map";
 
 import styles from "@styles/Page.module.scss";
-import avoidTooManyRequestsError from "@lib/avoidTooManyRequestsError";
+import avoidTooManyRequestsError from "@util/avoidTooManyRequestsError";
 
 export default function Stores({ storeLocations }) {
   const [selectedLatlong, setSelectedLatlong] = useState(null);
