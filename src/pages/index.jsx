@@ -3,14 +3,11 @@ import Link from "next/link";
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
-  useQuery,
   gql,
 } from "@apollo/client";
 
 import Layout from "@components/Layout";
 import Container from "@components/Container";
-import Button from "@components/Button";
 import AddProductToCartButton from "@components/AddProductToCartButton";
 
 import styles from "@styles/Page.module.scss";
@@ -84,7 +81,7 @@ export default function Home({ home, products }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   const client = new ApolloClient({
     uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
     cache: new InMemoryCache(),
@@ -92,8 +89,8 @@ export async function getStaticProps() {
 
   const { data } = await client.query({
     query: gql`
-      query PAGE_HOME {
-        page(where: { slug: "home" }) {
+      query PAGE_HOME($locale: Locale!) {
+        page(where: {slug: "home"}, locales: [$locale]) {
           id
           heroLink
           heroText
@@ -102,7 +99,7 @@ export async function getStaticProps() {
           slug
           heroBackground
         }
-        products(where: {categories_some: {slug: "featured"}}) {
+        products(where: {categories_some: {slug: "featured"}}, locales: [$locale]) {
           id
           name
           price
@@ -111,6 +108,9 @@ export async function getStaticProps() {
         }
       }
     `,
+    variables: {
+      locale: locale.replace('-', '_'),
+    }
   });
 
   return {

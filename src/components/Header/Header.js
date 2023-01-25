@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSnipcart } from "use-snipcart/useSnipcart";
 import OpenCardButton from "@components/OpenCardButton";
@@ -8,6 +10,12 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   const { cart = {} } = useSnipcart();
+  const { locale: activeLocale, locales, asPath } = useRouter();
+
+  const otherLocales = useMemo(
+    () => locales.filter((locale) => locale !== activeLocale),
+    [locales, activeLocale]
+  );
 
   return (
     <header className={styles.header}>
@@ -41,11 +49,13 @@ const Header = () => {
           </OpenCardButton>
         </p>
         <ul className={styles.headerLocales}>
-          <li>
-            <Link href="#">
-              <a>ES</a>
-            </Link>
-          </li>
+          {otherLocales.map((otherLocale) => (
+            <li key={otherLocale}>
+              <Link href={asPath} locale={otherLocale}>
+                <a>{otherLocale.toUpperCase()}</a>
+              </Link>
+            </li>
+          ))}
         </ul>
       </Container>
     </header>

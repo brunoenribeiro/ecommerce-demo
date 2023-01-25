@@ -8,6 +8,7 @@ Features:
 
 - Product CMS w/ Cloudinary integration (wip);
 - Sandbox checkout w/ Stripe integration (wip);
+- i18n (wip);
 - Typed codebase (to do);
 - Automated testing (to do).
 

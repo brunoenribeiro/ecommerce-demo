@@ -7,9 +7,7 @@ import {
 } from "@apollo/client";
 
 import Layout from '@components/Layout';
-import Header from '@components/Header';
 import Container from '@components/Container';
-import Button from '@components/Button';
 
 import styles from '@styles/Page.module.scss'
 import AddProductToCartButton from '@components/AddProductToCartButton';
@@ -65,7 +63,7 @@ export default function Category({ category, products }) {
   )
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const client = new ApolloClient({
     uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
     cache: new InMemoryCache(),
@@ -82,12 +80,13 @@ export async function getStaticPaths() {
     `,
   });
 
-  const paths = data.categories.map(category => {
-    return {
+  const paths = data.categories.flatMap(category => {
+    return locales.map(locale => ({
+      locale,
       params: {
         categorySlug: category.slug,
-      }
-    };
+      },
+    }))
   });
 
   return {
@@ -96,7 +95,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
   const client = new ApolloClient({
     uri: "https://api-sa-east-1.hygraph.com/v2/clcy4n6d72s5y01t5gcbohop0/master",
     cache: new InMemoryCache(),
@@ -104,8 +103,8 @@ export async function getStaticProps({ params }) {
 
   const { data } = await client.query({
     query: gql`
-      query CATEGORY($categorySlug: String) {
-        category(where: { slug: $categorySlug }) {
+      query CATEGORY($categorySlug: String, $locale: Locale!) {
+        category(where: { slug: $categorySlug }, locales: [$locale]) {
           id
           name
           slug
@@ -121,6 +120,7 @@ export async function getStaticProps({ params }) {
     `,
     variables: {
       categorySlug: params.categorySlug,
+      locale: locale.replace('-', '_'),
     }
   });
 
