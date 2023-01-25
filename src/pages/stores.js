@@ -32,6 +32,7 @@ export default function Stores({ storeLocations }) {
                   <p>{storeLocation.phoneNumber}</p>
                   <p className={styles.locationDiscovery}>
                     <button
+                      style={{ cursor: "pointer" }}
                       onClick={() =>
                         setSelectedLatlong([
                           storeLocation.location.latitude,
