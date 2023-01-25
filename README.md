@@ -1,4 +1,15 @@
-# Space Jelly Gear Starter
+# E-commerce Demo
+
+👉 This project is a WIP.
+
+Demo project based on this Egghead's Course: [ECommerce Product Management & Storefront with GraphCMS, Snipcart, & Next.js](https://egghead.io/courses/ecommerce-product-management-storefront-with-graphcms-snipcart-next-js-13cc0534)
+
+Features:
+
+- Product CMS w/ Cloudinary integration (wip);
+- Sandbox checkout w/ Stripe integration (wip);
+- Typed codebase (to do);
+- Automated testing (to do).
 
 ## Stack
 
@@ -9,10 +20,9 @@
 - GraphQL Client: Apollo Client;
 - CSS Preprocessors: Saas.
 
-## ⚡️ Quick Start
+## Installation
 
 ```bash
-yarn create next-app -e https://github.com/colbyfayock/space-jelly-gear-starter
-# or
-npx create-next-app -e https://github.com/colbyfayock/space-jelly-gear-starter
+yarn
+yarn dev
 ```
