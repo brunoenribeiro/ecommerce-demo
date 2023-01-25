@@ -27,7 +27,7 @@ function Map({ className = '', locations = [], zoomedLatlong = null }) {
     const initialMapCenter = center(features)?.geometry.coordinates || [0,0];
 
     return (
-        <MapContainer className={`${styles.map} ${className}`} center={initialMapCenter} zoom={4} scrollWheelZoom>
+        <MapContainer className={`${styles.map} ${className}`} center={initialMapCenter} zoom={10} scrollWheelZoom>
             <LocationZoomer latlong={zoomedLatlong} />
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
